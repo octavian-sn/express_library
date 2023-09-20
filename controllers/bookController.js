@@ -2,7 +2,7 @@ const Book = require("../models/book");
 const asyncHandler = require("express-async-handler");
 
 exports.index = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Site Home Page");
+  res.render("index", {title: "Library", sidebar: '', content:'' });
 });
 
 // Display list of all books.
