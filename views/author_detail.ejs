@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include(head) %>
+
+    <body id="abc">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2">
+                    <%- include(sidebar) %>
+                </div>
+                <div>
+                    <h1>Author: <%= author.name %>
+                    </h1>
+                    <p>
+                        <%= author.lifespan %>
+                    </p>
+
+                    <div style="margin-left: 20px; margin-top: 20px; max-width: 1000px;">
+                        <h4>Books</h4>
+
+                        <dl>
+                            <% if (author_books.length> 0) { %>
+                                <% author_books.forEach(function(book) { %>
+                                    <dt>
+                                        <a href="<%= book.url %>">
+                                            <%= book.title %>
+                                        </a>
+                                    </dt>
+                                    <dd>
+                                        <%= book.summary %>
+                                    </dd>
+                                <% }); %>
+                            <% } else { %>
+                                <p>This author has no books.</p>
+                            <% } %>
+                        </dl>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
