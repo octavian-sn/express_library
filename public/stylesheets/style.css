@@ -3,3 +3,7 @@
   padding: 0;
   list-style: none;
 }
+
+a {
+  font-weight:500;
+}
