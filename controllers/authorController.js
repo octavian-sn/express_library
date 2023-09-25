@@ -143,6 +143,8 @@ exports.author_delete_post = asyncHandler(async (req, res, next) => {
       title: "Delete Author",
       author: author,
       author_books: allBooksByAuthor,
+      head: "head",
+      sidebar: "sidebar",
     });
     return;
   } else {
