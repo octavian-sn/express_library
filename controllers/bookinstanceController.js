@@ -86,6 +86,8 @@ exports.bookinstance_create_post = [
         selected_book: bookInstance.book._id,
         errors: errors.array(),
         bookinstance: bookInstance,
+        head: "head",
+        sidebar: "sidebar",
       });
       return;
     } else {
