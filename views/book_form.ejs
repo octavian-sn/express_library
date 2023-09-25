@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include(head) %>
+
+    <body id="abc">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2">
+                    <%- include(sidebar) %>
+                </div>
+                <div>
+                    
+                    <h1><%= title %></h1>
+
+                    <form method="POST" action="">
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        <input
+                        id="title"
+                        class="form-control"
+                        type="text"
+                        placeholder="Name of book"
+                        name="title"
+                        required="true"
+                        value="<%= (typeof book !== 'undefined' ? book.title : '') %>"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Author:</label>
+                        <select
+                        id="author"
+                        class="form-control"
+                        type="select"
+                        placeholder="Select author"
+                        name="author"
+                        required="true"
+                        >
+                        <% authors.sort(function(a, b) {let textA = a.family_name.toUpperCase(); let textB = b.family_name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;}); %>
+                        <% for (let i = 0; i < authors.length; i++) { %>
+                            <% const author = authors[i]; %>
+                            <% if (locals.book) { %>
+                            <option
+                                value="<%= author._id %>"
+                                <% if (author._id.toString() === book.author._id.toString()) { %>
+                                selected="selected"
+                                <% } %>
+                            >
+                                <%= author.name %>
+                            </option>
+                            <% } else { %>
+                            <option value="<%= author._id %>"><%= author.name %></option>
+                            <% } %>
+                        <% } %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="summary">Summary:</label>
+                        <textarea
+                        id="summary"
+                        class="form-control"
+                        type="textarea"
+                        placeholder="Summary"
+                        name="summary"
+                        required="true"
+                        ><%= (typeof book !== 'undefined' ? book.summary : '') %></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="isbn">ISBN:</label>
+                        <input
+                        id="isbn"
+                        class="form-control"
+                        type="text"
+                        placeholder="ISBN13"
+                        name="isbn"
+                        value="<%= (typeof book !== 'undefined' ? book.isbn : '') %>"
+                        required="true"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label>Genre:</label>
+                        <div>
+                        <% for (let i = 0; i < genres.length; i++) { %>
+                            <% const genre = genres[i]; %>
+                            <div style="display: inline; padding-right: 10px;">
+                            <input
+                                class="checkbox-input"
+                                type="checkbox"
+                                name="genre"
+                                id="<%= genre._id %>"
+                                value="<%= genre._id %>"
+                                <% if (genre.checked) { %>
+                                checked="checked"
+                                <% } %>
+                            />
+                            <label for="<%= genre._id %>"><%= genre.name %></label>
+                            </div>
+                        <% } %>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                    </form>
+
+                    <% if (locals.errors) { %>
+                    <ul>
+                        <% for (let i = 0; i < errors.length; i++) { %>
+                        <li><%= errors[i].msg %></li>
+                        <% } %>
+                    </ul>
+                    <% } %>
+
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
