@@ -28,7 +28,7 @@
                                 <% const book = book_list[i]; %>
                                 <option
                                 value='<%= book._id %>'
-                                selected='<%= (locals.selected_book == book._id.toString() ? 'selected' : '') %>'
+                                <%= (locals.selected_book == book._id.toString() ? 'selected' : '') %>
                                 >
                                 <%= book.title %>
                                 </option>

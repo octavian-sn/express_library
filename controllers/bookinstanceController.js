@@ -144,12 +144,64 @@ exports.bookinstance_update_get = asyncHandler(async (req, res, next) => {
     title: "Update Book Instance",
     book_list: books,
     bookinstance,
+    selected_book: bookinstance.book._id,
     head: "head",
     sidebar: "sidebar",
   });
 });
 
 // Handle bookinstance update on POST.
-exports.bookinstance_update_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: BookInstance update POST");
-});
+exports.bookinstance_update_post = [
+
+  // Validate and sanitize fields.
+  body("book", "Book must be specified.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("imprint", "Imprint must be specified.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("status").escape(),
+  body("due_back", "Summary must not be empty.")
+    .optional({ values: "falsy" })
+    .isISO8601()
+    .toDate(),
+
+  // Process request after validation and sanitization.
+  asyncHandler(async (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create a Book object with escaped/trimmed data and old id.
+    const bookinstance = new BookInstance({
+      book: req.body.book,
+      imprint: req.body.imprint,
+      status: req.body.status,
+      due_back: req.body.due_back,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values/error messages.
+
+      const allBooks = await Book.find({}, "title").exec();
+
+      res.render("bookinstance_form", {
+        title: "Update Book Instance",
+        book_list: allBooks,
+        selected_book: bookinstance.book._id,
+        errors: errors.array(),
+        bookinstance,
+        head: "head",
+        sidebar: "sidebar",
+      });
+      return;
+    } else {
+      // Data from form is valid. Update the record.
+      const updatedBookInstance = await BookInstance.findByIdAndUpdate(req.params.id, bookinstance, {});
+      // Redirect to book detail page.
+      res.redirect(updatedBookInstance.url);
+    }
+  }),
+];
