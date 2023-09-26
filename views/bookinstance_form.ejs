@@ -69,25 +69,25 @@
                             >
                             <option
                                 value='Maintenance'
-                                selected='<%= (typeof bookinstance === 'undefined' || bookinstance.status !== 'Maintenance' ? '' : 'selected') %>'
+                                <%= (typeof bookinstance === 'undefined' || bookinstance.status !== 'Maintenance' ? '' : 'selected') %>
                             >
                                 Maintenance
                             </option>
                             <option
                                 value='Available'
-                                selected='<%= (typeof bookinstance === 'undefined' || bookinstance.status !== 'Available' ? '' : 'selected') %>'
+                                <%= (typeof bookinstance === 'undefined' || bookinstance.status !== 'Available' ? '' : 'selected') %>
                             >
                                 Available
                             </option>
                             <option
                                 value='Loaned'
-                                selected='<%= (typeof bookinstance === 'undefined' || bookinstance.status !== 'Loaned' ? '' : 'selected') %>'
+                                <%= (typeof bookinstance === 'undefined' || bookinstance.status !== 'Loaned' ? '' : 'selected') %>
                             >
                                 Loaned
                             </option>
                             <option
                                 value='Reserved'
-                                selected='<%= (typeof bookinstance === 'undefined' || bookinstance.status !== 'Reserved' ? '' : 'selected') %>'
+                                <%= (typeof bookinstance === 'undefined' || bookinstance.status !== 'Reserved' ? '' : 'selected') %>
                             >
                                 Reserved
                             </option>
