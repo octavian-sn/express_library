@@ -36,7 +36,7 @@ exports.author_detail = asyncHandler(async (req, res, next) => {
       head: "head",
       sidebar: "sidebar",
     });
-  });  
+});  
 
 // Display author create form on GET.
 exports.author_create_get = (req, res, next) => {
@@ -156,7 +156,21 @@ exports.author_delete_post = asyncHandler(async (req, res, next) => {
 
 // Display Author update on GET.
 exports.author_update_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Author update GET")
+  const author = await Author.findById(req.params.id).exec();
+
+  if (!author){
+    // No results.
+    const err = new Error("Author not found")
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("author_form", {
+    title: "Update Author",
+    head: "head",
+    sidebar: "sidebar",
+    author,
+  })
 })
 
 // Handle Author update on POST.
