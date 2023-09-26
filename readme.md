@@ -27,8 +27,8 @@ https://
 
 ## Screenshots
 
-![Home](/images/home.png)
-![Books](/images/books.png)
-![Book](/images/book.png)
-![Update](/images/update.png)
-![Delete](/images/delete.png)
+![Home](/public/images/home.png)
+![Books](/public/images/books.png)
+![Book](/public/images/book.png)
+![Update](/public/images/update.png)
+![Delete](/public/images/delete.png)
