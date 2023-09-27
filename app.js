@@ -8,6 +8,7 @@ require('dotenv').config()
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const catalogRouter = require('./routes/catalog');
+const compression = require("compression");
 
 const app = express();
 
@@ -17,7 +18,7 @@ mongoose.set("strictQuery", false);
 
 main().catch((err) => console.log(err));
 async function main() {
-  await mongoose.connect(process.env.DB_URI);
+  await mongoose.connect(process.env.DB);
 }
 
 // view engine setup
@@ -28,6 +29,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression()); //Compress all routes
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
